@@ -10,7 +10,7 @@
  （※[参考記事](https://go-journey.club/archives/17029)）
 ## 今回構築する環境
  - 構成図  
-![tf-configration-diagram](/images/other/tf-configration-diagram.png)
+ ![tf-configration-diagram](/images/other/tf-configration-diagram.png)
  - ディレクトリ構成
    ```
     terraform-practice
@@ -116,10 +116,10 @@ $ asdf install
  terraform-practice\  
 ├── environments\  
 │   └── dev\  
-│       &emsp;├── [backend.tf](/tf-practice-sub/environments-dev/backend.tf)\  
-│       &emsp;├── [main.tf](/tf-practice-sub/environments-dev/main.tf)\  
-│       &emsp;├── [outputs.tf](/tf-practice-sub/environments-dev/outputs.tf)\  
-│       &emsp;└── [provider.tf](/tf-practice-sub/environments-dev/provider.tf)\  
+│        &emsp;├── [backend.tf](/tf-practice-sub/environments-dev/backend.tf)\  
+│        &emsp;├── [main.tf](/tf-practice-sub/environments-dev/main.tf)\  
+│        &emsp;├── [outputs.tf](/tf-practice-sub/environments-dev/outputs.tf)\  
+│        &emsp;└── [provider.tf](/tf-practice-sub/environments-dev/provider.tf)\  
 └── modules\  
 &emsp; ├── alb\  
 &emsp; │   ├── [main.tf](/tf-practice-sub/modules/alb/main.tf)\  
