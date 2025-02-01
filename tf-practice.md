@@ -10,7 +10,7 @@
  （※[参考記事](https://go-journey.club/archives/17029)）
 ## 今回構築する環境
  - 構成図  
- ![tf-configration-diagram](/images/other/tf-configration-diagram.png)
+ ![tf-configuration-diagram](/images/other/tf-configuration-diagram.png)
  - ディレクトリ構成
    ```
     terraform-practice
