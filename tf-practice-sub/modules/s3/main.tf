@@ -1,9 +1,18 @@
+locals {
+  resource_names = {
+    s3_bucket            = "${var.bucket_name}-${var.resource_name_suffix}"
+    iam_policy           = "${var.policy_name}-${var.resource_name_suffix}"
+    iam_role             = "${var.role_name}-${var.resource_name_suffix}"
+    iam_instance_profile = "${var.instance_profile_name}-${var.resource_name_suffix}"
+  }
+}
+
 # S3バケットの作成
 resource "aws_s3_bucket" "this" {
-  bucket = var.bucket_name
+  bucket = local.resource_names.s3_bucket
 
   tags = {
-    Name = var.bucket_name
+    Name = local.resource_names.s3_bucket
   }
 }
 
@@ -30,7 +39,7 @@ resource "aws_s3_bucket_public_access_block" "this" {
 
 # S3に対するアクセス許可を定義したIAMポリシーを作成
 resource "aws_iam_policy" "tf_s3_policy" {
-  name = var.policy_name
+  name = local.resource_names.iam_policy
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -38,10 +47,10 @@ resource "aws_iam_policy" "tf_s3_policy" {
       {
         Effect = "Allow"
         Action = [
-          "s3:GetObject", # オブジェクトの取得
-          "s3:PutObject", # オブジェクトのアップロード
-          "s3:ListBucket",# バケット内のファイル一覧取得
-          "s3:DeleteObject", # オブジェクトの削除
+          "s3:GetObject",        # オブジェクトの取得
+          "s3:PutObject",        # オブジェクトのアップロード
+          "s3:ListBucket",       # バケット内のファイル一覧取得
+          "s3:DeleteObject",     # オブジェクトの削除
           "s3:GetBucketLocation" # バケットのリージョン取得
         ]
         Resource = [
@@ -55,7 +64,7 @@ resource "aws_iam_policy" "tf_s3_policy" {
 
 # EC2で使用するIAMロールを作成
 resource "aws_iam_role" "s3_access_role" {
-  name = var.role_name
+  name = local.resource_names.iam_role
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -71,7 +80,7 @@ resource "aws_iam_role" "s3_access_role" {
     ]
   })
   tags = {
-    Name = var.role_name
+    Name = local.resource_names.iam_role
   }
 }
 
@@ -83,7 +92,7 @@ resource "aws_iam_role_policy_attachment" "s3_policy_attach" {
 
 # EC2にIAMロールを適用するためのインスタンスプロファイルを作成
 resource "aws_iam_instance_profile" "s3_access_profile" {
-  name = var.instance_profile_name
+  name = local.resource_names.iam_instance_profile
   role = aws_iam_role.s3_access_role.name
 }
 

@@ -1,7 +1,7 @@
 locals {
   resource_names = {
-    ec2_instance   = "tf-ec2"
-    security_group = "tf-ec2-sg"
+    ec2_instance   = "tf-ec2-${var.resource_name_suffix}"
+    security_group = "tf-ec2-sg-${var.resource_name_suffix}"
   }
 }
 
@@ -10,13 +10,13 @@ resource "aws_instance" "this" {
   ami           = var.ami
   instance_type = var.instance_type
 
-  subnet_id                   = var.subnet_id
-  vpc_security_group_ids      = [aws_security_group.this.id]
+  subnet_id              = var.subnet_id
+  vpc_security_group_ids = [aws_security_group.this.id]
   # true の場合パブリックIPを割り当てる設定
   associate_public_ip_address = var.associate_public_ip
   key_name                    = var.key_name
   # IAMロールを設定
-  iam_instance_profile        = var.instance_profile_name
+  iam_instance_profile = var.instance_profile_name
   tags = {
     Name = local.resource_names.ec2_instance
   }
@@ -32,6 +32,7 @@ resource "aws_security_group" "this" {
   # サブネットが属するVPCのIDを取得
   vpc_id = data.aws_subnet.this.vpc_id
   name   = local.resource_names.security_group
+
   tags = {
     Name = local.resource_names.security_group
   }

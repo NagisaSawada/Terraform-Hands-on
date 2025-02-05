@@ -13,13 +13,14 @@
  ![tf-configuration-diagram](/images/other/tf-configuration-diagram.png)
  - ディレクトリ構成
    ```
-    terraform-practice
+  terraform-practice
     ├── environments
     │   └── dev
     │       ├── backend.tf
     │       ├── main.tf
     │       ├── outputs.tf
-    │       └── provider.tf
+    │       ├── provider.tf
+    │       └── variables.tf
     └── modules
         ├── alb
         │   ├── main.tf
@@ -41,7 +42,7 @@
             ├── main.tf
             ├── outputs.tf
             └── variables.tf
-    ```
+   ```
 ## 実行手順
    [1. asdfでTerraformをインストール](#1-asdfでterraformをインストール)  
    [2. プロバイダーの設定](#2-プロバイダーの設定)  
@@ -113,13 +114,15 @@ $ asdf install
 ### **5. 各moduleを作成**
  - 環境ごとに設定を分けやすい構成・moduleの再利用が可能な構成を意識しコードを作成  
  （各コードは下記ファイル名をクリックして閲覧可能）  
+ （環境を複数作成する場合はenvironments配下に新たにディレクトリを切りdevとは違う変数を指定する）  
  terraform-practice\  
 ├── environments\  
 │   └── dev\  
-│        &emsp;├── [backend.tf](/tf-practice-sub/environments-dev/backend.tf)\  
-│        &emsp;├── [main.tf](/tf-practice-sub/environments-dev/main.tf)\  
-│        &emsp;├── [outputs.tf](/tf-practice-sub/environments-dev/outputs.tf)\  
-│        &emsp;└── [provider.tf](/tf-practice-sub/environments-dev/provider.tf)\  
+│       &emsp;├── [backend.tf](/tf-practice-sub/environments-dev/backend.tf)\  
+│       &emsp;├── [main.tf](/tf-practice-sub/environments-dev/main.tf)\  
+│       &emsp;├── [outputs.tf](/tf-practice-sub/environments-dev/outputs.tf)\  
+│       &emsp;├── [provider.tf](/tf-practice-sub/environments-dev/provider.tf)\  
+│       &emsp;└── [variables.tf](/tf-practice-sub/environments-dev/variables.tf)\
 └── modules\  
 &emsp; ├── alb\  
 &emsp; │   ├── [main.tf](/tf-practice-sub/modules/alb/main.tf)\  
@@ -140,7 +143,7 @@ $ asdf install
 &emsp; └── vpc\  
 &emsp; &emsp; ├── [main.tf](/tf-practice-sub/modules/vpc/main.tf)\  
 &emsp; &emsp; ├── [outputs.tf](/tf-practice-sub/modules/vpc/outputs.tf)\  
-&emsp; &emsp; └── variables.tf\  # 今回は空ファイル
+&emsp; &emsp; └── [variables.tf](/tf-practice-sub/modules/vpc/variables.tf)\  
  - コードのフォーマットを整えるコマンドを実行
 ```
 $ terraform fmt
@@ -173,42 +176,42 @@ $ terraform apply
 #### 構築確認
  - VPC  
  VPCの設定  
- ![create-vpc](/images/vpc/create-vpc.png)  
+ ![create-vpc](/images/vpc/create-vpc-dev.png)  
  ネットワークへの接続  
- ![route-table](/images/vpc/route-table.png)
+ ![route-table](/images/vpc/route-table-dev.png)
  - EC2  
 EC2の設定  
-![create-ec2](/images/ec2/create-ec2.png)  
-![create-ec2-2](/images/ec2/create-ec2-2.png)  
+![create-ec2](/images/ec2/create-ec2-dev.png)  
+![create-ec2-2](/images/ec2/create-ec2-dev-2.png)  
 EC2のセキュリティグループ  
-![ec2-sg-in](/images/ec2/ec2-sg-in.png)  
-![ec2-sg-out](/images/ec2/ec2-sg-out.png)  
+![ec2-sg-in](/images/ec2/ec2-sg-in-dev.png)  
+![ec2-sg-out](/images/ec2/ec2-sg-out-dev.png)  
 S3へのアクセスロール  
-![ec2-iam-role](/images/ec2/ec2-iam-role.png)  
-![s3-acces-role](/images/ec2/s3-acces-role.png)
+![ec2-iam-role](/images/ec2/ec2-iam-role-dev.png)  
+![s3-acces-role](/images/ec2/s3-acces-role-dev.png)
  - ALB  
  ALBの設定  
- ![create-alb](/images/alb/create-alb.png)  
+ ![create-alb](/images/alb/create-alb-dev.png)  
  ALBのリスナー  
- ![alb-listener](/images/alb/alb-listener.png)  
+ ![alb-listener](/images/alb/alb-listener-dev.png)  
  ALBのターゲット  
- ![alb-target](/images/alb/alb-target.png)  
+ ![alb-target](/images/alb/alb-target-dev.png)  
  ALBのセキュリティグループ  
- ![alb-sg-in](/images/alb/alb-sg-in.png)  
- ![alb-sg-out](/images/alb/alb-sg-out.png)
+ ![alb-sg-in](/images/alb/alb-sg-in-dev.png)  
+ ![alb-sg-out](/images/alb/alb-sg-out-dev.png)
  - RDS  
  RDSの設定  
- ![create-rds](/images/rds/create-rds.png)  
+ ![create-rds](/images/rds/create-rds-dev.png)  
  RDSのセキュリティグループ  
- ![rds-sg-in](/images/rds/rds-sg-in.png)  
- ![rds-sg-out](/images/rds/rds-sg-out.png)
+ ![rds-sg-in](/images/rds/rds-sg-in-dev.png)  
+ ![rds-sg-out](/images/rds/rds-sg-out-dev.png)
  - S3  
  バケットの確認  
-![s3-configuration](/images/s3/s3-configuration.png)    
+![s3-configuration](/images/s3/s3-configuration-dev.png)    
 
  #### 接続確認
  - EC2へSSH接続確認  
-   ![ec2-ssh-connection](/images/ec2/ec2-ssh-connection.png)
+   ![ec2-ssh-connection](/images/ec2/ec2-ssh-connection-dev.png)
  - EC2からRDSへ接続確認  
    <details><summary>接続確認までの手順</summary>  
 
@@ -221,7 +224,7 @@ S3へのアクセスロール
    ```
 
    </details>  
-  ![ec2-to-rds](/images/rds/ec2-to-rds.png)
+  ![ec2-to-rds](/images/rds/ec2-to-rds-dev.png)
  - EC2で起動させているNginxのwelcomeページをALBのDNSをブラウザで叩いて表示させる  
    <details><summary>接続までの手順</summary>  
 
@@ -235,8 +238,8 @@ S3へのアクセスロール
    ```  
 
    </details>  
-  ![start-nginx](/images/other/start-nginx.png)  
-  ![alb-to-nginx](/images/other/alb-to-nginx.png)
+  ![start-nginx](/images/other/start-nginx-dev.png)  
+  ![alb-to-nginx](/images/other/alb-to-nginx-dev.png)
 
 ---
 
@@ -252,8 +255,8 @@ S3へのアクセスロール
 ## 感想
  - CloudFormationはAWS専用ツールだったが、Terraformはマルチクラウド対応な為、今後業務に就いた際使うことが出てくるかもしれない。その練習が出来て良かった。
  - ドライランで構成の変更を確認出来る点が非常に便利だった。
+ - 試しにenvironments配下にprod環境を作成してみたら初めは環境が衝突してリソースが作成できなかったが、変数定義や代入・受け取りの場所をよく考え直し修正に持って行けた。
  - CloudFormationはAWSに特化し、シンプルなリソース管理が行える。  
  Terraformはマルチクラウド環境を一元管理し、柔軟なインフラ運用が行える。  
  これらを踏まえ、今後携わるプロジェクトがどのようにIaCを使い分けているのか、その目的を考えていこうと思った。
  - 今回は簡易的な構成だったが、workspaceを使った複数環境の構築にも挑戦してみたい。
-

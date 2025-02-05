@@ -5,8 +5,7 @@ variable "subnet_id" {
 
 
 variable "db_identifier" {
-  type    = string
-  default = "tf-database"
+  type = string
 }
 
 variable "allocated_storage" {
@@ -21,7 +20,8 @@ variable "db_engine" {
 
 variable "db_engine_version" {
   type    = string
-  default = "8.0.35"
+  # Cfn構築時のv-8.0.35は標準サポート終了日が近いため変更
+  default = "8.0.40" 
 }
 
 variable "instance_class" {
@@ -30,8 +30,7 @@ variable "instance_class" {
 }
 
 variable "username" {
-  type    = string
-  default = "admin3"
+  type = string
 }
 
 variable "backup_retention_period" {
@@ -50,5 +49,10 @@ variable "ec2_security_group_id" {
 
 variable "private_subnet_ids" {
   type = list(string)
+}
+
+# リソース名に付加する接尾辞
+variable "resource_name_suffix" {
+  type = string
 }
 

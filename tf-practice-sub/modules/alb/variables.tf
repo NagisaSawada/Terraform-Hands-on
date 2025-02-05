@@ -13,3 +13,8 @@ variable "instance_security_group_id" {
   type = string
 }
 
+# リソース名に付加する接尾辞
+variable "resource_name_suffix" {
+  type = string
+}
+

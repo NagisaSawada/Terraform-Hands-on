@@ -1,26 +1,16 @@
 locals {
-  public_subnet_args = {
-    "ap-northeast-1a" = "10.0.0.0/24"
-    "ap-northeast-1c" = "10.0.1.0/24"
-  }
-
-  private_subnet_args = {
-    "ap-northeast-1a" = "10.0.2.0/24"
-    "ap-northeast-1c" = "10.0.3.0/24"
-  }
-
   resource_names = {
-    vpc            = "tf-vpc"
-    public_subnet  = "tf-public-subnet"
-    private_subnet = "tf-private-subnet"
+    vpc            = "tf-vpc-${var.resource_name_suffix}"
+    public_subnet  = "tf-public-subnet-${var.resource_name_suffix}"
+    private_subnet = "tf-private-subnet-${var.resource_name_suffix}"
   }
 }
 
 # VPCの作成
 resource "aws_vpc" "this" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block = var.vpc_cidr
   # DNS解決を有効化
-  enable_dns_support   = true
+  enable_dns_support = true
   # VPC内のEC2でホスト名を使えるようにする
   enable_dns_hostnames = true
 
@@ -31,7 +21,7 @@ resource "aws_vpc" "this" {
 
 # パブリックサブネットの作成
 resource "aws_subnet" "public" {
-  for_each = local.public_subnet_args
+  for_each = var.public_subnet_args
 
   vpc_id            = aws_vpc.this.id
   cidr_block        = each.value
@@ -43,7 +33,7 @@ resource "aws_subnet" "public" {
 
 # プライベートサブネットの作成
 resource "aws_subnet" "private" {
-  for_each = local.private_subnet_args
+  for_each = var.private_subnet_args
 
   vpc_id            = aws_vpc.this.id
   cidr_block        = each.value
@@ -57,7 +47,7 @@ resource "aws_subnet" "private" {
 resource "aws_internet_gateway" "this" {
   vpc_id = aws_vpc.this.id
   tags = {
-    Name = "tf-internet-gateway"
+    Name = "tf-internet-gateway-${var.resource_name_suffix}"
   }
 }
 
@@ -70,7 +60,7 @@ resource "aws_route_table" "public" {
     gateway_id = aws_internet_gateway.this.id
   }
   tags = {
-    Name = "tf-public-route-table"
+    Name = "tf-public-route-table-${var.resource_name_suffix}"
   }
 }
 
@@ -80,7 +70,7 @@ resource "aws_route_table" "private" {
 
   vpc_id = aws_vpc.this.id
   tags = {
-    Name = "tf-private-route-table-${each.key}"
+    Name = "tf-private-route-table-${var.resource_name_suffix}-${each.key}"
   }
 }
 
@@ -99,3 +89,4 @@ resource "aws_route_table_association" "private" {
   subnet_id      = each.value.id
   route_table_id = aws_route_table.private[each.key].id
 }
+

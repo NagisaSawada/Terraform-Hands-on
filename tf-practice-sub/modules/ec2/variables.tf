@@ -10,8 +10,7 @@ variable "instance_type" {
 }
 
 variable "key_name" {
-  type    = string
-  default = "terraform_keypair"
+  type = string
 }
 
 variable "associate_public_ip" {
@@ -20,9 +19,7 @@ variable "associate_public_ip" {
 }
 
 variable "ssh_cidr_blocks" {
-  type    = list(string)
-  # 今回はデフォルトにマイIPを設定
-  default = ["133.32.217.130/32"]
+  type = list(string)
 }
 
 variable "allow_ssh" {
@@ -35,6 +32,11 @@ variable "subnet_id" {
 }
 
 variable "instance_profile_name" {
+  type = string
+}
+
+# リソース名に付加する接尾辞
+variable "resource_name_suffix" {
   type = string
 }
 

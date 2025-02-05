@@ -1,6 +1,6 @@
 locals {
   resource_names = {
-    security_group = "tf-alb-sg"
+    security_group = "tf-alb-sg-${var.resource_name_suffix}"
   }
 }
 
@@ -9,6 +9,10 @@ resource "aws_lb" "this" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.this.id]
   subnets            = var.subnet_ids
+
+  tags = {
+    Name = "tf-alb-${var.resource_name_suffix}"
+  }
 }
 
 # ALBのリスナー（HTTP:80）の作成
@@ -16,7 +20,7 @@ resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.this.arn
   port              = "80"
   protocol          = "HTTP"
-  
+
   # すべてのリクエストをターゲットグループへ転送
   default_action {
     type             = "forward"
