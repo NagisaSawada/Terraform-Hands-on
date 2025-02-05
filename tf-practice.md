@@ -12,7 +12,7 @@
  - 構成図  
  ![tf-configuration-diagram](/images/other/tf-configuration-diagram.png)
  - ディレクトリ構成
-   ```
+```
   terraform-practice
     ├── environments
     │   └── dev
@@ -41,8 +41,8 @@
         └── vpc
             ├── main.tf
             ├── outputs.tf
-            └── variables.tf
-   ```
+            └── variables.tf  
+```
 ## 実行手順
    [1. asdfでTerraformをインストール](#1-asdfでterraformをインストール)  
    [2. プロバイダーの設定](#2-プロバイダーの設定)  
