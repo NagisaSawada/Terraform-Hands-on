@@ -92,13 +92,13 @@ $ asdf install
 ---
 
 ### **2. プロバイダーの設定**
- - `terraform-practice/environments/dev`配下に[provider.tf](/tf-practice-sub/environments-dev/provider.tf)を作成し、AWS東京リージョンのプロバイダーを設定
+ - `terraform-practice/environments/dev`配下に[provider.tf](/terraform-practive/environments/dev/provider.tf)を作成し、AWS東京リージョンのプロバイダーを設定
 
 ---
 
 ### **3. バックエンドにS3を設定**
  - tfstateの管理に、事前に作成していたS3バケットを使用する
- - `terraform-practice/environments/dev`配下に[backend.tf](/tf-practice-sub/environments-dev/backend.tf)を作成
+ - `terraform-practice/environments/dev`配下に[backend.tf](/terraform-practive/environments/dev/backend.tf)を作成
 
 ---
 
@@ -118,32 +118,32 @@ $ asdf install
  terraform-practice\  
 ├── environments\  
 │   └── dev\  
-│       &emsp;├── [backend.tf](/tf-practice-sub/environments-dev/backend.tf)\  
-│       &emsp;├── [main.tf](/tf-practice-sub/environments-dev/main.tf)\  
-│       &emsp;├── [outputs.tf](/tf-practice-sub/environments-dev/outputs.tf)\  
-│       &emsp;├── [provider.tf](/tf-practice-sub/environments-dev/provider.tf)\  
-│       &emsp;└── [variables.tf](/tf-practice-sub/environments-dev/variables.tf)\
+│       &emsp;├── [backend.tf](/terraform-practive/environments/dev/backend.tf)\  
+│       &emsp;├── [main.tf](/terraform-practive/environments/dev/main.tf)\  
+│       &emsp;├── [outputs.tf](/terraform-practive/environments/dev/outputs.tf)\  
+│       &emsp;├── [provider.tf](/terraform-practive/environments/dev/provider.tf)\  
+│       &emsp;└── [variables.tf](/terraform-practive/environments/dev/variables.tf)\
 └── modules\  
 &emsp; ├── alb\  
-&emsp; │   ├── [main.tf](/tf-practice-sub/modules/alb/main.tf)\  
-&emsp; │   ├── [outputs.tf](/tf-practice-sub/modules/alb/outputs.tf)\  
-&emsp; │   └── [variables.tf](/tf-practice-sub/modules/alb/variables.tf)\  
+&emsp; │   ├── [main.tf](/terraform-practive/modules/alb/main.tf)\  
+&emsp; │   ├── [outputs.tf](/terraform-practive/modules/alb/outputs.tf)\  
+&emsp; │   └── [variables.tf](/terraform-practive/modules/alb/variables.tf)\  
 &emsp; ├── ec2\
-&emsp; │   ├── [main.tf](/tf-practice-sub/modules/ec2/main.tf)\  
-&emsp; │   ├── [outputs.tf](/tf-practice-sub/modules/ec2/outputs.tf)\  
-&emsp; │   └── [variables.tf](/tf-practice-sub/modules/ec2/variables.tf)\  
+&emsp; │   ├── [main.tf](/terraform-practive/modules/ec2/main.tf)\  
+&emsp; │   ├── [outputs.tf](/terraform-practive/modules/ec2/outputs.tf)\  
+&emsp; │   └── [variables.tf](/terraform-practive/modules/ec2/variables.tf)\  
 &emsp; ├── rds\  
-&emsp; │   ├── [main.tf](/tf-practice-sub/modules/rds/main.tf)\  
-&emsp; │   ├── [outputs.tf](/tf-practice-sub/modules/rds/outputs.tf)\  
-&emsp; │   └── [variables.tf](/tf-practice-sub/modules/rds/variables.tf)\  
+&emsp; │   ├── [main.tf](/terraform-practive/modules/rds/main.tf)\  
+&emsp; │   ├── [outputs.tf](/terraform-practive/modules/rds/outputs.tf)\  
+&emsp; │   └── [variables.tf](/terraform-practive/modules/rds/variables.tf)\  
 &emsp; ├── s3\  
-&emsp; │   ├── [main.tf](/tf-practice-sub/modules/s3/main.tf)\  
-&emsp; │   ├── [outputs.tf](/tf-practice-sub/modules/s3/outputs.tf)\  
-&emsp; │   └── [variables.tf](/tf-practice-sub/modules/s3/variables.tf)\  
+&emsp; │   ├── [main.tf](/terraform-practive/modules/s3/main.tf)\  
+&emsp; │   ├── [outputs.tf](/terraform-practive/modules/s3/outputs.tf)\  
+&emsp; │   └── [variables.tf](/terraform-practive/modules/s3/variables.tf)\  
 &emsp; └── vpc\  
-&emsp; &emsp; ├── [main.tf](/tf-practice-sub/modules/vpc/main.tf)\  
-&emsp; &emsp; ├── [outputs.tf](/tf-practice-sub/modules/vpc/outputs.tf)\  
-&emsp; &emsp; └── [variables.tf](/tf-practice-sub/modules/vpc/variables.tf)\  
+&emsp; &emsp; ├── [main.tf](/terraform-practive/modules/vpc/main.tf)\  
+&emsp; &emsp; ├── [outputs.tf](/terraform-practive/modules/vpc/outputs.tf)\  
+&emsp; &emsp; └── [variables.tf](/terraform-practive/modules/vpc/variables.tf)\  
  - コードのフォーマットを整えるコマンドを実行
 ```
 $ terraform fmt
