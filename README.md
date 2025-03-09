@@ -1,8 +1,7 @@
-# CloudFormationで構築した環境をTerraformで構築する
+# ベーシックなAWS環境をTerraformで構築する
 ## 今回の目的
  - 初めてTerraformで環境構築するにあたりその概要を理解する
  - module機能の導入により構成ファイルの組織化・再利用性アップを図る
- - [Cfnで構築した環境](https://github.com/NagisaSawada/RaiseTech/blob/main/lecture10.md)をもとにベーシックな環境構築を行う
 ## 構成図
 ![tf-configuration-diagram](/images/other/tf-configuration-diagram.png)
 ## ディレクトリ構成

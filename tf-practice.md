@@ -1,4 +1,4 @@
-# CloudFormationで構築した環境をTerraformで構築する
+# ベーシックなAWS環境をTerraformで構築する
 ## 今回の目的
  - 初めてTerraformで環境構築するにあたりその概要を理解する 
  - module機能の導入により構成ファイルの組織化・再利用性アップを図る
